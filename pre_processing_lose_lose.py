@@ -136,3 +136,59 @@ print(df2)
 
 # Save the updated DataFrame to a new Excel file
 df2.to_excel('lose_lose_pre_processed_part2.xlsx', index=False)
+
+
+# Read the Excel file into a variable
+summery_data = os.path.dirname(os.path.abspath(__file__))
+df3 = pd.read_excel(os.path.join(summery_data, 'lose_lose_pre_processed_part2.xlsx'))
+
+# Group the data by "Participant ID" and calculate the summary results for each participant
+# Total money won will be the value of the "money_won" column on the row where "Trial Number" is 50
+# Net score will be the value of the "net_score" column on the row where "Trial Number" is 50
+# Myopic choices will be the sum of the "myopic_choice" column for each participant, Prospective choices will be the sum of the "prospective_choice" column for each participant
+# Myopic wins will be the sum of the "myopic_wins" column for each participant, Prospective wins will be the sum of the "prospective_wins" column for each participant
+# Myopic actions will be the sum of the "myopic_actions" column for each participant, Prospective actions will be the sum of the "prospective_actions" column for each participant
+# Myopic persistence will be the sum of the "myopic_persistence" column for each participant, Prospective persistence will be the sum of the "prospective_persistence" column for each participant
+# Myopic reinforcement will be the sum of the "myopic_reinforcement" column for each participant, Prospective reinforcement will be the sum of the "prospective_reinforcement" column for each participant
+# Myopic curiosity will be the sum of the "myopic_curiosity" column for each participant, Prospective curiosity will be the sum of the "prospective_curiosity" column for each participant
+# Myopic switch will be the sum of the "myopic_switch" column for each participant, Prospective switch will be the sum of the "prospective_switch" column for each participant
+# Myopic explore will be the sum of the "myopic_explore" column for each participant, Prospective explore will be the sum of the "prospective_explore" column for each participant
+# Myopic exploit will be the sum of the "myopic_exploit" column for each participant, Prospective exploit will be the sum of the "prospective_exploit" column for each participant
+# Total explore will be the sum of the "total_explore" column for each participant, Total exploit will be the sum of the "total_exploit" column for each participant
+# Myopic model-free will be the sum of the "myopic_model-free" column for each participant, Prospective model-free will be the sum of the "prospective_model-free" column for each participant
+# Myopic model-based will be the sum of the "myopic_model-based" column for each participant, Prospective model-based will be the sum of the "prospective_model-based" column for each participant
+# Total model-free will be the sum of the "total_model-free" column for each participant, Total model-based will be the sum of the "total_model-based" column for each participant
+summary_df = df3.groupby('Participant Private ID').agg({
+    'money_won': lambda x: x[df3['Trial Number'] == 50].values[0],
+    'net_score': lambda x: x[df3['Trial Number'] == 50].values[0],
+    'myopic_choice': 'sum',
+    'prospective_choice': 'sum',
+    'myopic_wins': 'sum',
+    'prospective_wins': 'sum',
+    'myopic_actions': 'sum',
+    'prospective_actions': 'sum',
+    'myopic_persistence': 'sum',
+    'prospective_persistence': 'sum',
+    'myopic_reinforcement': 'sum',
+    'prospective_reinforcement': 'sum',
+    'myopic_curiosity': 'sum',
+    'prospective_curiosity': 'sum',
+    'myopic_switch': 'sum',
+    'prospective_switch': 'sum',
+    'myopic_explore': 'sum',
+    'prospective_explore': 'sum',
+    'myopic_exploit': 'sum',
+    'prospective_exploit': 'sum',
+    'total_explore': 'sum',
+    'total_exploit': 'sum',
+    'myopic_model-free': 'sum',
+    'prospective_model-free': 'sum',
+    'myopic_model-based': 'sum',
+    'prospective_model-based': 'sum',
+    'total_model-free': 'sum',
+    'total_model-based': 'sum'
+}).reset_index()
+print(summary_df)
+
+# Save the summary DataFrame to a new Excel file
+summary_df.to_excel('lose_lose_summary.xlsx', index=False)
