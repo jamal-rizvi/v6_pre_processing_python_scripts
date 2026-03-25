@@ -4,7 +4,7 @@ import os
 
 # Read the Excel file into a variable
 gorilla_data = os.path.dirname(os.path.abspath(__file__))
-df = pd.read_excel(os.path.join(gorilla_data, 'delay_discounting_test.xlsx'))
+df = pd.read_excel(os.path.join(gorilla_data, 'delay_discounting_v6.xlsx'))
 
 # Extract the relevant columns from the DataFrame
 # Include columns titled "Participant Private ID", "Task Name", "Display", "Trial Number", "Response", "block", "Store: participant_display", "Store: worse", "Store: better",
@@ -82,3 +82,31 @@ print(rates_df)
 
 # Save the updated DataFrame with discounting rates to a new Excel file
 rates_df.to_excel('delay_discounting_rates.xlsx', index=False)
+
+
+# Reading task data into a dataframe
+discounts = pd.read_excel(os.path.join(gorilla_data, 'delay_discounting_rates.xlsx'))
+
+# select only columns that start with "k_"
+discounts = discounts.filter(regex='^k_')
+
+# Compute row-wise median of values > 0 and finite
+k_med = discounts.apply(
+    lambda row: np.median(row[(row > 0) & np.isfinite(row)]),
+    axis=1
+)
+
+# Append the column with Participant Private ID to the k_med series
+k_med = pd.concat([rates_df['Participant Private ID'], k_med.rename('k_median')], axis=1)
+
+# Move the Participant Private ID column to the left of the k_median column
+cols = k_med.columns.tolist()
+cols.insert(cols.index('k_median'), cols.pop(cols.index('Participant Private ID')))
+
+# Edit the "k_median" column title to "discount_rate"
+k_med.rename(columns={'k_median': 'discount_rate'}, inplace=True)
+
+print(k_med)
+
+# Save the k_med DataFrame to a new Excel file
+k_med.to_excel('delay_discounting_k_median.xlsx', index=False)

@@ -4,7 +4,7 @@ import os
 
 # Read the Excel file into a variable
 gorilla_data = os.path.dirname(os.path.abspath(__file__))
-df = pd.read_excel(os.path.join(gorilla_data, 'stop_signal_test.xlsx'))
+df = pd.read_excel(os.path.join(gorilla_data, 'stop_signal_v6.xlsx'))
 
 # Extract the relevant columns from the DataFrame
 # Include columns titled "Participant Private ID", "Task Name", "Display", "Screen", "Trial Number", "Response", "block", "Store: participant_display", "Store: worse", "Store: better",
@@ -67,3 +67,14 @@ print(summary_df)
 
 # Save the summary DataFrame to a new Excel file
 summary_df.to_excel('stop_signal_summary.xlsx', index=False)
+
+# Read the summary Excel file into a variable
+ssrt = os.path.dirname(os.path.abspath(__file__))
+ssrt_df = pd.read_excel(os.path.join(ssrt, 'stop_signal_summary.xlsx'))
+
+# Remove all columns except for "Participant Private ID" and "SSRT"
+ssrt_df = ssrt_df[['Participant Private ID', 'SSRT']]
+print(ssrt_df)
+
+# Save the updated DataFrame to a new Excel file
+ssrt_df.to_excel('stop_signal_SSRT.xlsx', index=False)

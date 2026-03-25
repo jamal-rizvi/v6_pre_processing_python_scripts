@@ -4,7 +4,7 @@ import os
 
 # Read the Excel file into a variable
 gorilla_data = os.path.dirname(os.path.abspath(__file__))
-df = pd.read_excel(os.path.join(gorilla_data, 'lose_win_test.xlsx'))
+df = pd.read_excel(os.path.join(gorilla_data, 'lose_win_v6.xlsx'))
 
 # Extracting the relevant columns for pre-processing
 # Exclude columns titled Event Index	UTC Timestamp	UTC Date and Time	Local Timestamp	Local Timezone	Local Date and Time	Experiment ID	Experiment Version	Tree Node Key	Repeat Key	Schedule ID	Participant Public ID

@@ -4,7 +4,7 @@ import os
 
 # Read the Excel file into a variable
 gorilla_data = os.path.dirname(os.path.abspath(__file__))
-df = pd.read_excel(os.path.join(gorilla_data, 'sot_control_test.xlsx'))
+df = pd.read_excel(os.path.join(gorilla_data, 'sot_control_v6.xlsx'))
 
 # Extract the relevant columns from the DataFrame
 # Include columns titled "Participant Private ID", "Task Name", "Display", "Screen", "Trial Number", "Response", "block", "Store: participant_display", "Store: rank"
