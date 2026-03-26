@@ -63,6 +63,8 @@ combined_df['smoking'] = questionnaire['smoking']
 combined_df['unhealthy_food'] = questionnaire['unhealthy_food']
 combined_df['drinking'] = questionnaire['drinking']
 combined_df['spending_money'] = questionnaire['spending_money']
+combined_df['healthy_actions'] = questionnaire['healthy_actions']
+combined_df['unhealthy_actions'] = questionnaire['unhealthy_actions']
 
 # Save the combined dataframe to a new Excel file
 combined_df.to_excel('combined_summary.xlsx', index=False)
@@ -135,6 +137,8 @@ for df, task in zip([ww, wl, lw, ll], ['win_win', 'win_lose', 'lose_win', 'lose_
     temp_df['myopic_explore'] = df['myopic_explore']
     temp_df['prospective_explore'] = df['prospective_explore']
     temp_df['total_explore'] = df['total_explore']
+    temp_df['myopic_exploit'] = df['myopic_exploit']
+    temp_df['prospective_exploit'] = df['prospective_exploit']
     temp_df['total_exploit'] = df['total_exploit']
     temp_df['myopic_model-free'] = df['myopic_model-free']
     temp_df['prospective_model-free'] = df['prospective_model-free']
